@@ -16,5 +16,3 @@ export async function analyzeItem(file, itemType) {
 
   return response.json();
 }
-
-

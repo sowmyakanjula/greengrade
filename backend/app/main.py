@@ -1,3 +1,4 @@
+
 from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
 import logging
@@ -9,6 +10,7 @@ logging.basicConfig(
 
 logger = logging.getLogger("greengrade")
 
+# ✅ STEP 3 — CREATE THE APP
 app = FastAPI()
 
 app.add_middleware(
@@ -33,15 +35,4 @@ async def analyze(
     item_type: str = Form(...)
 ):
     logger.info(f"Analyze request | file={image.filename} | type={item_type}")
-
-    result = {
-        "grade": "A",
-        "health": 92,
-        "growth_stage": "Blooming",
-        "care_tips": "Water regularly",
-        "filename": image.filename,
-        "type": item_type
-    }
-
-    logger.info(f"Analyze success | file={image.filename}")
-    return result
+    return {"grade": "A"}
