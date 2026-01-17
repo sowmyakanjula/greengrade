@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { analyzePlant } from "./services/api";
+import { analyzeItem } from "./services/api";
+
 
 export default function App() {
   const [file, setFile] = useState(null);
@@ -19,13 +20,14 @@ export default function App() {
 
     try {
       setLoading(true);
-      const data = await analyzePlant({ file, itemType: type });
+      const data = await analyzeItem(file, type);
       setResult(data);
     } catch (e) {
       setErr("Something went wrong. Check backend is running.");
     } finally {
       setLoading(false);
     }
+
   };
 
   return (
