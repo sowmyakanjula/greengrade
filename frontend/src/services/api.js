@@ -1,13 +1,18 @@
-export async function analyzePlant({ file, itemType }) {
-  const formData = new FormData();
-  formData.append("item_type", itemType);
-  formData.append("image", file);
+const BASE = import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000";
 
-  const res = await fetch("http://127.0.0.1:8000/analyze", {
+export async function analyzeItem(file, itemType) {
+  const formData = new FormData();
+  formData.append("image", file);
+  formData.append("item_type", itemType);
+
+  const response = await fetch(`${BASE}/analyze`, {
     method: "POST",
     body: formData,
   });
 
-  if (!res.ok) throw new Error("API failed");
-  return res.json();
+  if (!response.ok) {
+    throw new Error("Failed to analyze image");
+  }
+
+  return response.json();
 }
